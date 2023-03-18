@@ -22,6 +22,9 @@ jobs:
         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779841249082.dkr.ecr.us-east-1.amazonaws.com
     - name: Build and push Docker image to ECR
       run: |
-          echo "as"
-          docker tag test:latest 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
-          docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
+         echo ${{ secrets.AWS_ACCESS_KEY_ID }}
+         echo "as"
+         docker build -f Services/Login/Login.API/Dockerfile .
+         docker tag test:latest 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
+         docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
+         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
