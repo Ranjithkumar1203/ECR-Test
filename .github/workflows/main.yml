@@ -25,3 +25,5 @@ jobs:
          docker build /Services/Login/Login.API/Dockerfile -t test .
          docker tag test:latest 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
          docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
+         docker buildx build --platform linux/amd64 -t myimage:latest .
+
