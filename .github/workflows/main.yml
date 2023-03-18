@@ -25,4 +25,3 @@ jobs:
          docker build /Services/Login/Login.API/Dockerfile -t test .
          docker tag test:latest 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
          docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
-         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
