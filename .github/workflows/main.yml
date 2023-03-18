@@ -23,6 +23,5 @@ jobs:
     - name: Build and push Docker image to ECR
       run: |
           echo "as"
-          docker build -f BuildrOpsBE-main/Services/Login/Login.API/Dockerfile .
           docker tag test:latest 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
           docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/test:latest
