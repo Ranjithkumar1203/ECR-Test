@@ -31,7 +31,7 @@ jobs:
          # push it to ECR
          echo ${{ secrets.AWS_ACCESS_KEY_ID }}
          echo "as"
-         docker build -f Services/Login/Login.API/Dockerfile -t latest .
+         docker buildx -f Services/Login/Login.API/Dockerfile -t latest .
          docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/githubrunner:latest
          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
