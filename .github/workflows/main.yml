@@ -17,13 +17,21 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Login to AWS ECR
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      id: build-image
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779841249082.dkr.ecr.us-east-1.amazonaws.com
-    - name: Build and push Docker image to ECR
-      run: |
-         docker build /Services/Login/Login.API/Dockerfile -t .
-         docker tag githubrunner:latest 779841249082.dkr.ecr.us-east-1.amazonaws.com/githubrunner:latest
+         #ls
+         # Build a docker container and
+         # push it to ECR
+         echo ${{ secrets.AWS_ACCESS_KEY_ID }}
+         echo "as"
+         docker build -f Services/Login/Login.API/Dockerfile -t latest .
          docker push 779841249082.dkr.ecr.us-east-1.amazonaws.com/githubrunner:latest
-         
+         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
